@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Finance</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-wallet"></i> Finance Tracker</h1>
+            <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <div class="summary-cards">
+            <div class="card balance-card slide-in">
+                <h3>Saldo</h3>
+                <p id="balance-amount">Rp0</p>
+            </div>
+            <div class="card income-card slide-in delay-1">
+                <h3>Pemasukan</h3>
+                <p id="income-amount">Rp0</p>
+            </div>
+            <div class="card expense-card slide-in delay-2">
+                <h3>Pengeluaran</h3>
+                <p id="expense-amount">Rp0</p>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <select id="month-filter" class="filter-input">
+                <option value="all">Semua Bulan</option>
+                <option value="1">Januari</option>
+                <option value="2">Februari</option>
+                <option value="3">Maret</option>
+                <option value="4">April</option>
+                <option value="5">Mei</option>
+                <option value="6">Juni</option>
+                <option value="7">Juli</option>
+                <option value="8">Agustus</option>
+                <option value="9">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+            <select id="type-filter" class="filter-input">
+                <option value="all">Semua Transaksi</option>
+                <option value="income">Pemasukan</option>
+                <option value="expense">Pengeluaran</option>
+            </select>
+            <button id="export-btn" class="action-btn"><i class="fas fa-file-pdf"></i> Ekspor PDF</button>
+        </div>
+
+        <div class="transaction-list">
+            <h2><i class="fas fa-list"></i> Daftar Transaksi</h2>
+            <div id="transactions-container"></div>
+        </div>
+
+        <button id="add-transaction-btn" class="floating-btn pulse"><i class="fas fa-plus"></i></button>
+
+        <div id="transaction-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Tambah Transaksi</h2>
+                <form id="transaction-form">
+                    <div class="form-group">
+                        <label for="transaction-date">Tanggal</label>
+                        <input type="date" id="transaction-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-description">Deskripsi</label>
+                        <input type="text" id="transaction-description" placeholder="Misal: Gaji Bulanan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-source">Sumber Dana</label>
+                        <select id="transaction-source" required>
+                            <option value="Gaji">Gaji</option>
+                            <option value="Investasi">Investasi</option>
+                            <option value="Hadiah">Hadiah</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-destination">Tujuan</label>
+                        <select id="transaction-destination" required>
+                            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+                            <option value="Hiburan">Hiburan</option>
+                            <option value="Tabungan">Tabungan</option>
+                            <option value="Investasi">Investasi</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-amount">Jumlah (Rp)</label>
+                        <input type="number" id="transaction-amount" oninput="validateNumberInput(this)"
+                        pattern="^-?\d+$" placeholder="Masukan Jumlah" required>
+                    </div>
+                    <div class="form-group radio-group">
+                        <label>
+                            <input type="radio" name="transaction-type" value="income" checked>
+                            <span class="radio-label income-radio">Pemasukan</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="transaction-type" value="expense">
+                            <span class="radio-label expense-radio">Pengeluaran</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">Simpan Transaksi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="script.js"></script>
+    <script src="pdfexport.js"></script>
+</body>
+</html>
